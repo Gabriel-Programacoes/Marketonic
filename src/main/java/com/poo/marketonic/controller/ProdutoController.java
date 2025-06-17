@@ -35,20 +35,16 @@ public class ProdutoController {
                 .map(ResponseEntity::ok)
                 .orElse (ResponseEntity.notFound().build());
     }
+
     @PutMapping("/{id}")
-    public ResponseEntity<Produto> atualizarProduto(@PathVariable Long id, @RequestBody Produto produtoAtualizado) {
-        return produtoService.atualizar(id, produtoAtualizado)
-                .map(ResponseEntity::ok)
-                .orElse(ResponseEntity.notFound().build());
+    public ResponseEntity<Produto> atualizarProduto(@PathVariable Long id, @RequestBody Produto produtoComNovosDados) {
+        Produto produtoAtualizado = produtoService.atualizar(id, produtoComNovosDados);
+        return ResponseEntity.ok(produtoAtualizado);
     }
 
     @DeleteMapping("/{id}")
     public ResponseEntity<Void> deletarProduto(@PathVariable Long id) {
-        boolean deletado = produtoService.deletar(id);
-        if (deletado) {
-            return ResponseEntity.noContent().build();
-        } else {
-            return ResponseEntity.notFound().build();
-        }
+        produtoService.deletar(id);
+        return ResponseEntity.noContent().build();
     }
 }
