@@ -2,6 +2,7 @@ package com.poo.marketonic.service;
 
 import com.poo.marketonic.model.Produto;
 import com.poo.marketonic.repository.ProdutoRepository;
+import com.poo.marketonic.repository.CategoriaRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -11,9 +12,12 @@ import java.util.Optional;
 public class ProdutoServiceImpl implements ProdutoService {
 
     private final ProdutoRepository produtoRepository;
+    private final CategoriaRepository categoriaRepository;
 
-    public ProdutoServiceImpl(ProdutoRepository produtoRepository) {
+
+    public ProdutoServiceImpl(ProdutoRepository produtoRepository, CategoriaRepository categoriaRepository) {
         this.produtoRepository = produtoRepository;
+        this.categoriaRepository = categoriaRepository;
     }
 
     @Override
@@ -21,6 +25,12 @@ public class ProdutoServiceImpl implements ProdutoService {
         if (produto.getPreco() < 0) {
             throw new IllegalArgumentException("O preço do produto não pode ser negativo.");
         }
+
+        if (produto.getCategoriaId() != null) {
+            categoriaRepository.buscarPorId(produto.getCategoriaId())
+                    .orElseThrow(() -> new RuntimeException("Categoria não encontrada com o ID: " + produto.getCategoriaId()));
+        }
+
         return produtoRepository.salvar(produto);
     }
 
@@ -41,10 +51,22 @@ public class ProdutoServiceImpl implements ProdutoService {
         if (produtoComNovosDados.getPreco() < 0) {
             throw new IllegalArgumentException("O preço do produto não pode ser negativo.");
         }
+
+        if (produtoComNovosDados.getCategoriaId() != null) {
+            categoriaRepository.buscarPorId(produtoComNovosDados.getCategoriaId())
+                    .orElseThrow(() -> new RuntimeException("Categoria não encontrada com o ID: " + produtoComNovosDados.getCategoriaId()));
+        }
+
         produtoExistente.setNome(produtoComNovosDados.getNome());
         produtoExistente.setDescricao(produtoComNovosDados.getDescricao());
         produtoExistente.setPreco(produtoComNovosDados.getPreco());
+        produtoExistente.setCategoriaId(produtoComNovosDados.getCategoriaId());
         return produtoRepository.salvar(produtoExistente);
+    }
+
+    @Override
+    public List<Produto> buscarPorCategoriaId(Long categoriaId) {
+        return produtoRepository.buscarPorCategoriaId(categoriaId);
     }
 
     @Override

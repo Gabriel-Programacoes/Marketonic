@@ -33,6 +33,8 @@ public interface ProdutoService {
      */
     Produto atualizar(Long id, Produto produtoAtualizado);
 
+    List<Produto> buscarPorCategoriaId(Long categoriaId);
+
     /**
      * Deleta um produto do sistema pelo seu ID.
      * Parâmetro = id. O ID do produto a ser deletado.

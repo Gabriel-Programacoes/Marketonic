@@ -1,7 +1,12 @@
 package com.poo.marketonic.controller;
 
 import com.poo.marketonic.model.Categoria;
+import com.poo.marketonic.model.Produto;
+
 import com.poo.marketonic.service.CategoriaService;
+import com.poo.marketonic.service.ProdutoService;
+
+
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -12,9 +17,12 @@ import java.util.List;
 public class CategoriaController {
 
     private final CategoriaService categoriaService;
+    private final ProdutoService produtoService;
 
-    public CategoriaController(CategoriaService categoriaService) {
+
+    public CategoriaController(CategoriaService categoriaService, ProdutoService produtoService) {
         this.categoriaService = categoriaService;
+        this.produtoService = produtoService;
     }
 
     @PostMapping
@@ -33,6 +41,15 @@ public class CategoriaController {
         return categoriaService.buscarPorId(id)
                 .map(ResponseEntity::ok)
                 .orElse(ResponseEntity.notFound().build());
+    }
+
+    @GetMapping("/{id}/produtos")
+    public ResponseEntity<List<Produto>> listarProdutosPorCategoria(@PathVariable Long id) {
+        categoriaService.buscarPorId(id)
+                .orElseThrow(() -> new RuntimeException("Categoria não encontrada com o ID: " + id));
+
+        List<Produto> produtos = produtoService.buscarPorCategoriaId(id);
+        return ResponseEntity.ok(produtos);
     }
 
     @PutMapping("/{id}")

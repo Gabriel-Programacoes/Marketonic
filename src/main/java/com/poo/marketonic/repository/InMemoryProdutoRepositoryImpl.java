@@ -5,6 +5,7 @@ import org.springframework.stereotype.Repository;
 
 import java.util.*;
 import java.util.concurrent.atomic.AtomicLong;
+import java.util.stream.Collectors;
 
 @Repository
 public class InMemoryProdutoRepositoryImpl implements ProdutoRepository {
@@ -25,6 +26,14 @@ public class InMemoryProdutoRepositoryImpl implements ProdutoRepository {
     public List<Produto> listarTodos() {
         return new ArrayList<>(produtos.values());
 
+    }
+
+    @Override
+    public List<Produto> buscarPorCategoriaId(Long categoriaId) {
+        // Usa Stream API para filtrar a lista de produtos
+        return produtos.values().stream()
+                .filter(produto -> categoriaId.equals(produto.getCategoriaId()))
+                .collect(Collectors.toList());
     }
 
     @Override

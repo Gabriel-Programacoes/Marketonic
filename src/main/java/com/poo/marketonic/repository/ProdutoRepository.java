@@ -14,5 +14,7 @@ public interface ProdutoRepository {
 
     Optional<Produto> buscarPorId(Long id);
 
+    List<Produto> buscarPorCategoriaId(Long categoriaId);
+
     void deletarPorId(Long id);
 }
