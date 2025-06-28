@@ -5,8 +5,7 @@ import com.poo.marketonic.model.Produto;
 
 import com.poo.marketonic.service.CategoriaService;
 import com.poo.marketonic.service.ProdutoService;
-
-
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -14,6 +13,7 @@ import java.util.List;
 
 @RestController
 @RequestMapping("/api/categorias")
+@CrossOrigin(origins = "*")
 public class CategoriaController {
 
     private final CategoriaService categoriaService;

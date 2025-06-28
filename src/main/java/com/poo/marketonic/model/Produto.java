@@ -1,16 +1,24 @@
 package com.poo.marketonic.model;
 
-import lombok.AllArgsConstructor;
+import jakarta.persistence.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import java.time.LocalDate;
 
+@Entity //  Marca como uma entidade/tabela
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
 public class Produto {
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
     private String nome;
     private String descricao;
     private double preco;
-    private Long categoriaId;
+    private int quantidadeEmEstoque;
+    private LocalDate dataDeValidade;
+
+    @ManyToOne // Define a relação: Muitos Produtos para Uma Categoria
+    @JoinColumn(name = "categoria_id") // Nome da coluna da chave estrangeira no banco
+    private Categoria categoria;
 }

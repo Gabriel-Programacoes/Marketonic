@@ -1,3 +1,4 @@
+// Local: src/main/java/com/poo/marketonic/service/CategoriaService.java
 package com.poo.marketonic.service;
 
 import com.poo.marketonic.model.Categoria;

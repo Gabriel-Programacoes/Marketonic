@@ -1,20 +1,22 @@
 package com.poo.marketonic.repository;
 
 import com.poo.marketonic.model.Produto;
-
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
+import java.time.LocalDate;
 import java.util.List;
 
-import java.util.Optional;
+@Repository
+public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
+    // Mágica do Spring Data JPA: basta declarar o método com o nome correto
+    // e ele cria a consulta SQL para você!
 
-public interface ProdutoRepository {
-    Produto salvar(Produto Produto);
+    List<Produto> findByCategoriaId(Long categoriaId);
 
-    List<Produto> listarTodos();
+    List<Produto> findByQuantidadeEmEstoqueLessThan(int limite);
 
-    Optional<Produto> buscarPorId(Long id);
+    List<Produto> findByDataDeValidadeBefore(LocalDate data);
 
-    List<Produto> buscarPorCategoriaId(Long categoriaId);
-
-    void deletarPorId(Long id);
+    List<Produto> findByDataDeValidadeBetween(LocalDate dataInicio, LocalDate dataFim);
 }

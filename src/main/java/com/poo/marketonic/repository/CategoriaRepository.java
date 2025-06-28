@@ -1,16 +1,9 @@
 package com.poo.marketonic.repository;
 
 import com.poo.marketonic.model.Categoria;
-import java.util.List;
-import java.util.Optional;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.stereotype.Repository;
 
-public interface CategoriaRepository {
-
-    Categoria salvar(Categoria categoria);
-
-    List<Categoria> listarTodas();
-
-    Optional<Categoria> buscarPorId(Long id);
-
-    void deletarPorId(Long id);
+@Repository
+public interface CategoriaRepository extends JpaRepository<Categoria, Long> {
 }
