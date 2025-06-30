@@ -1,4 +1,3 @@
-// Local: src/main/java/com/poo/marketonic/service/ProdutoServiceImpl.java
 package com.poo.marketonic.service;
 
 import com.poo.marketonic.model.Categoria;
@@ -31,9 +30,20 @@ public class ProdutoServiceImpl implements ProdutoService {
         if (produto.getPreco() < 0) {
             throw new IllegalArgumentException("O preço do produto não pode ser negativo.");
         }
-        // Validação da Categoria usando o objeto Categoria
-        validarCategoria(produto.getCategoria());
 
+        // 1. Verifica se a informação da categoria foi enviada
+        if (produto.getCategoria() == null || produto.getCategoria().getId() == null) {
+            throw new IllegalArgumentException("A categoria do produto é obrigatória e precisa de um ID.");
+        }
+
+        // 2. Busca a categoria REAL e GERENCIADA pelo banco de dados usando o ID
+        Categoria categoriaGerenciada = categoriaRepository.findById(produto.getCategoria().getId())
+                .orElseThrow(() -> new RuntimeException("Categoria com ID " + produto.getCategoria().getId() + " não encontrada."));
+
+        // 3. Atribui a categoria REAL ao produto que será salvo
+        produto.setCategoria(categoriaGerenciada);
+
+        // 4. Salva o produto com a referência de categoria correta e completa
         return produtoRepository.save(produto); // JPA usa save() para criar e atualizar
     }
 
@@ -55,6 +65,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
         // Valida a nova categoria
         validarCategoria(produtoComNovosDados.getCategoria());
+
 
         // Atualiza os campos do produto existente
         produtoExistente.setNome(produtoComNovosDados.getNome());

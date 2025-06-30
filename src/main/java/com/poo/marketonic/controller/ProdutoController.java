@@ -5,13 +5,11 @@ import com.poo.marketonic.service.ProdutoService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.bind.annotation.CrossOrigin;
 import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/produtos")
-@CrossOrigin(origins = "*")
 public class ProdutoController {
 
     private final ProdutoService produtoService;

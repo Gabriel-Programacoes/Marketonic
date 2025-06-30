@@ -1,4 +1,3 @@
-// Local: src/main/java/com/poo/marketonic/service/ProdutoService.java
 package com.poo.marketonic.service;
 
 import com.poo.marketonic.model.Produto;
@@ -17,7 +16,6 @@ public interface ProdutoService {
 
     void deletar(Long id);
 
-    // Métodos específicos que agora usarão o poder do JpaRepository
     List<Produto> buscarPorCategoriaId(Long categoriaId);
 
     Produto atualizarEstoque(Long id, int quantidade);

@@ -4,7 +4,7 @@ import jakarta.persistence.*;
 import lombok.Data;
 import java.time.LocalDate;
 
-@Entity //  Marca como uma entidade/tabela
+@Entity
 @Data
 public class Produto {
 

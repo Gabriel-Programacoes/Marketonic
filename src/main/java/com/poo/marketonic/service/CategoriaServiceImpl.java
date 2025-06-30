@@ -1,4 +1,3 @@
-// Local: src/main/java/com/poo/marketonic/service/CategoriaServiceImpl.java
 package com.poo.marketonic.service;
 
 import com.poo.marketonic.model.Categoria;
@@ -39,7 +38,6 @@ public class CategoriaServiceImpl implements CategoriaService {
         Categoria categoriaExistente = categoriaRepository.findById(id)
                 .orElseThrow(() -> new RuntimeException("Categoria não encontrada com o ID: " + id));
 
-        // Regra de negócio continua a mesma
         if (categoriaComNovosDados.getNome() == null || categoriaComNovosDados.getNome().isBlank()) {
             throw new IllegalArgumentException("O nome da categoria não pode ser vazio.");
         }
