@@ -29,7 +29,6 @@ public class ProdutoController {
         return ResponseEntity.ok(produtoService.listarTodos());
     }
 
-    //Endpoint: Listar produtos com estoque baixo
     @GetMapping("/alertas/estoque-baixo")
     public ResponseEntity<List<Produto>> getProdutosComEstoqueBaixo() {
         List<Produto> produtos = produtoService.listarProdutosComEstoqueBaixo();
@@ -61,7 +60,6 @@ public class ProdutoController {
         return ResponseEntity.ok(produtoAtualizado);
     }
 
-    //Endpoint: Atualizar estoque de um produto (entrada/saída)
     @PatchMapping("/{id}/estoque")
     public ResponseEntity<Produto> atualizarEstoque(@PathVariable Long id, @RequestBody Map<String, Integer> requestBody) {
         Integer quantidade = requestBody.get("quantidade");
