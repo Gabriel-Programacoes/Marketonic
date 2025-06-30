@@ -111,9 +111,7 @@ A URL base para todos os endpoints é `http://localhost:9971/api`.
     "dataDeValidade": "2025-12-31",
     "categoria": {
         "id": 1 
-    },
-    "fornecedor": "Laticínios Bom Sabor",
-    "codigo": "7890123456789"
+    }
 }
 ```
 
