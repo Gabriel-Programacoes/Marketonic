@@ -90,7 +90,7 @@ public class ProdutoServiceImpl implements ProdutoService {
 
     @Override
     public List<Produto> buscarPorCategoriaId(Long categoriaId) {
-        // Chama o método que criamos na interface do repositório
+        // Chama o método criado na interface do repositório
         return produtoRepository.findByCategoriaId(categoriaId);
     }
 
