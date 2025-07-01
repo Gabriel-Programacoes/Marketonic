@@ -9,8 +9,6 @@ import java.util.List;
 @Repository
 public interface ProdutoRepository extends JpaRepository<Produto, Long> {
 
-    // Mágica do Spring Data JPA: basta declarar o método com o nome correto
-    // e ele cria a consulta SQL para você!
 
     List<Produto> findByCategoriaId(Long categoriaId);
 
